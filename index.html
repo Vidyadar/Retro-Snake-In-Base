@@ -290,8 +290,9 @@
                 auth = getAuth(app);
                 db = getFirestore(app);
 
-                // Attempt to sign in with the provided token, otherwise sign in anonymously.
-                // Note: The public data path requires an authenticated user (request.auth != null).
+                // This is a CRITICAL step. If the "Anonymous" provider is not enabled in your Firebase
+                // project's Authentication settings, this signInAnonymously() call will fail
+                // with the `auth/configuration-not-found` error.
                 if (initialAuthToken) {
                     await signInWithCustomToken(auth, initialAuthToken);
                 } else {
