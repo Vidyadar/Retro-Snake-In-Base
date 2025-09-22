@@ -1,1 +1,32 @@
+{
+  "frame": {
+    "name": "Retro Snake In Base",
+    "version": "1",
+    "iconUrl": "https://retro-snake-in-base-vidhyadars-projects.vercel.app/icon.png",
+    "homeUrl": "https://retro-snake-in-base-vidhyadars-projects.vercel.app",
+    "imageUrl": "https://retro-snake-in-base-vidhyadars-projects.vercel.app/image.png",
+    "buttonTitle": "Play Snake Game",
+    "splashImageUrl": "https://retro-snake-in-base-vidhyadars-projects.vercel.app/splash.png",
+    "splashBackgroundColor": "#1a1a1a",
+    "webhookUrl": "https://retro-snake-in-base-vidhyadars-projects.vercel.app/api/webhook",
+    "subtitle": "Classic snake game with retro styling",
+    "primaryCategory": "games",
+    "description": "A nostalgic take on the classic Snake game featuring retro pixel art graphics and smooth gameplay. Navigate your snake to collect food, grow longer, and achieve high scores in this timeless arcade experience.",
+    "screenshotUrls": [
+      "https://retro-snake-in-base-vidhyadars-projects.vercel.app/screenshot1.png"
+    ],
+    "heroImageUrl": "https://retro-snake-in-base-vidhyadars-projects.vercel.app/hero.png",
+    "tags": [
+      "snake",
+      "retro",
+      "arcade",
+      "pixel"
+    ],
+    "tagline": "Slither Back to the Golden Age",
+    "ogTitle": "Retro Snake In Base - Classic",
+    "ogDescription": "Experience the classic Snake game with modern polish and retro aesthetics",
+    "ogImageUrl": "https://retro-snake-in-base-vidhyadars-projects.vercel.app/social-share.png",
+    "castShareUrl": "https://warpcast.com/~/compose?text=Check+out+this+app"
+  }
+}
 
