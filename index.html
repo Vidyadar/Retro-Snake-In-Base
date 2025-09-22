@@ -290,6 +290,8 @@
                 auth = getAuth(app);
                 db = getFirestore(app);
 
+                // Attempt to sign in with the provided token, otherwise sign in anonymously.
+                // Note: The public data path requires an authenticated user (request.auth != null).
                 if (initialAuthToken) {
                     await signInWithCustomToken(auth, initialAuthToken);
                 } else {
@@ -341,7 +343,8 @@
                 loadingOverlay.style.display = 'none';
             } catch (error) {
                 console.error("Error initializing Firebase:", error);
-                loadingOverlay.innerHTML = `<p style="color:red;">Error loading game. Check console for details.</p>`;
+                // Display the specific error message from Firebase
+                loadingOverlay.innerHTML = `<p style="color:red;">Error loading game: <br>${error.message}</p>`;
             }
         }
 
