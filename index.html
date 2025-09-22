@@ -248,16 +248,16 @@
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
-        // --- Corrected Firebase Configuration ---
-        // I have placed your credentials directly here to ensure the app initializes correctly.
+        // --- Firebase Configuration ---
+        // REPLACE THIS ENTIRE OBJECT with your new credentials from the Firebase console.
         const firebaseConfig = {
-            apiKey: "AIzaSyDtcc0bDYXMYDYrnqr0A9RsEC1X9tnNuqk",
-            authDomain: "retro-snake-game-6a504.firebaseapp.com",
-            projectId: "retro-snake-game-6a504",
-            storageBucket: "retro-snake-game-6a504.firebasestorage.app",
-            messagingSenderId: "209379402225",
-            appId: "1:209379402225:web:08af2feabd12b3157b2450",
-            measurementId: "G-KJ3QZPKE8S"
+        apiKey: "AIzaSyAcV8LNls0Mw-eDk1gjxGVLIDaBbhHqkUE",
+        authDomain: "retrosnake-b61ae.firebaseapp.com",
+        projectId: "retrosnake-b61ae",
+        storageBucket: "retrosnake-b61ae.firebasestorage.app",
+        messagingSenderId: "228743955058",
+        appId: "1:228743955058:web:d97e6737f905a9cfe938eb",
+        measurementId: "G-RQ7MTKMZN8"
         };
         // ----------------------------------------------------------------------
 
@@ -277,8 +277,9 @@
 
         async function initFirebase() {
             try {
-                if (firebaseConfig.projectId.includes("YOUR_")) {
-                    console.log("Using fallback config. Leaderboard features are disabled.");
+                // Check if Firebase config is provided and not a placeholder
+                if (!firebaseConfig || !firebaseConfig.projectId || firebaseConfig.projectId.includes("YOUR_")) {
+                    console.error("Firebase config is missing or invalid. Check your Firebase setup.");
                     loadingOverlay.innerHTML = `<p style="color:red;">Leaderboard unavailable. <br>Please run in a compatible environment or provide your own Firebase config.</p>`;
                     return;
                 }
