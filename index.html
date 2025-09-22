@@ -239,7 +239,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, query, orderBy, limit, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, query, limit, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Set Firebase debug log level
         setLogLevel('debug');
@@ -270,6 +270,7 @@
         let userId = 'anonymous';
         let currentUserScore = 0;
         let leaderboardRef;
+        let userDocRef;
 
         const loadingOverlay = document.getElementById('loadingOverlay');
         const userIdDisplay = document.getElementById('userIdDisplay');
@@ -300,20 +301,21 @@
 
                 // Reference to the public leaderboard collection
                 leaderboardRef = collection(db, `artifacts/${appId}/public/data/leaderboard`);
+                userDocRef = doc(leaderboardRef, userId);
 
-                // Listen for real-time updates to the leaderboard
-                const q = query(leaderboardRef, orderBy('score', 'desc'), limit(10));
-                onSnapshot(q, (snapshot) => {
+                // Listen for real-time updates to the leaderboard. Note: This will not be
+                // sorted by score unless you create a Firestore index.
+                // A single-field index on 'score' is required for the orderBy query to work.
+                onSnapshot(leaderboardRef, (snapshot) => {
+                    const leaderboardData = [];
+                    snapshot.forEach(d => leaderboardData.push(d.data()));
+
+                    // Sort client-side to display the top scores
+                    leaderboardData.sort((a, b) => b.score - a.score);
+
                     leaderboardList.innerHTML = '';
-                    let foundUserScore = false;
-                    snapshot.forEach(doc => {
-                        const data = doc.data();
+                    leaderboardData.slice(0, 10).forEach(data => {
                         const isCurrentUser = data.userId === userId;
-                        if (isCurrentUser) {
-                           currentUserScore = data.score;
-                           highScoreElement.textContent = currentUserScore;
-                           foundUserScore = true;
-                        }
                         const scoreEntry = document.createElement('li');
                         scoreEntry.innerHTML = `<span>${data.userId === userId ? 'YOU' : data.userId.substring(0, 8) + '...'}</span> <span>${data.score}</span>`;
                         if (isCurrentUser) {
@@ -322,11 +324,19 @@
                         }
                         leaderboardList.appendChild(scoreEntry);
                     });
-                    if (!foundUserScore) {
-                         currentUserScore = 0;
-                         highScoreElement.textContent = '0';
+                });
+
+                // Listen for the current user's high score
+                onSnapshot(userDocRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        currentUserScore = docSnap.data().score;
+                        highScoreElement.textContent = currentUserScore;
+                    } else {
+                        currentUserScore = 0;
+                        highScoreElement.textContent = '0';
                     }
                 });
+
 
                 loadingOverlay.style.display = 'none';
             } catch (error) {
@@ -336,14 +346,13 @@
         }
 
         async function updateHighScore(newScore) {
-            if (leaderboardRef && newScore > currentUserScore) {
-                const docRef = doc(leaderboardRef, userId);
-                await setDoc(docRef, {
+            if (userDocRef && newScore > currentUserScore) {
+                await setDoc(userDocRef, {
                     userId: userId,
                     score: newScore,
                     timestamp: serverTimestamp()
                 }, { merge: true });
-                currentUserScore = newScore;
+                // currentUserScore will be updated by the onSnapshot listener
             }
         }
 
