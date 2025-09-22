@@ -246,7 +246,7 @@
 
         // Global variables for Firebase configuration
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
         // --- Firebase Initialization ---
@@ -264,6 +264,10 @@
 
         async function initFirebase() {
             try {
+                if (!firebaseConfig) {
+                    throw new Error("Firebase configuration not found. Please provide valid Firebase configuration.");
+                }
+
                 app = initializeApp(firebaseConfig);
                 auth = getAuth(app);
                 db = getFirestore(app);
