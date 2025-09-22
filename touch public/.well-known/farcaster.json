@@ -1,1 +1,15 @@
-
+{
+  "frame": {
+    "name": "Retro Snake In Base",
+    "version": "1",
+    "iconUrl": "https://retro-snake-in-base-vidhyadars-projects.vercel.app/icon.png",
+    "homeUrl": "https://retro-snake-in-base-vidhyadars-projects.vercel.app",
+    "imageUrl": "https://retro-snake-in-base-vidhyadars-projects.vercel.app/image.png",
+    "splashImageUrl": "https://retro-snake-in-base-vidhyadars-projects.vercel.app/splash.png",
+    "splashBackgroundColor": "#1a1a1a",
+    "webhookUrl": "https://retro-snake-in-base-vidhyadars-projects.vercel.app/api/webhook",
+    "subtitle": "Classic snake game with retro styling",
+    "description": "A nostalgic take on the classic Snake game featuring retro pixel art graphics and smooth gameplay. Navigate your snake to collect food, grow longer, and achieve high scores in this timeless arcade experience.",
+    "primaryCategory": "games"
+  }
+}
