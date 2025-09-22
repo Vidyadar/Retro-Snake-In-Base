@@ -264,9 +264,17 @@
 
         async function initFirebase() {
             try {
-                if (!firebaseConfig) {
-                    throw new Error("Firebase configuration not found. Please provide valid Firebase configuration.");
-                }
+               if (!firebaseConfig) {
+            console.warn("Using fallback Firebase configuration. Leaderboard will not be functional. To enable, provide your own config.");
+            firebaseConfig = {
+                apiKey: "YOUR_API_KEY",
+                authDomain: "YOUR_AUTH_DOMAIN",
+                projectId: "YOUR_PROJECT_ID",
+                storageBucket: "YOUR_STORAGE_BUCKET",
+                messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+                appId: "YOUR_APP_ID"
+            };
+        }
 
                 app = initializeApp(firebaseConfig);
                 auth = getAuth(app);
