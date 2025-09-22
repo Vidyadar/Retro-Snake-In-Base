@@ -249,8 +249,6 @@
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
         // --- Firebase Configuration ---
-        // To find your Firebase config, go to the Firebase Console -> Project settings -> Your apps.
-        // Copy the entire "firebaseConfig" object and paste it here.
         const firebaseConfig = {
             apiKey: "AIzaSyDTcc0BDYMYDnyrQR8A9rSEC1X9TNtNqK",
             authDomain: "retro-snake-game-6a504.firebaseapp.com",
@@ -286,18 +284,15 @@
                     return;
                 }
                 
-                // Validate API key before initializing Firebase
-                if (firebaseConfig.apiKey.includes('YOUR_')) {
-                    throw new Error("auth/api-key-not-valid");
+                // This is the new, more robust check
+                if (!firebaseConfig.apiKey || firebaseConfig.apiKey.includes('YOUR_')) {
+                    throw new Error("Invalid Firebase API key. Please check your project settings.");
                 }
 
                 app = initializeApp(firebaseConfig);
                 auth = getAuth(app);
                 db = getFirestore(app);
 
-                // This is a CRITICAL step. If the "Anonymous" provider is not enabled in your Firebase
-                // project's Authentication settings, this signInAnonymously() call will fail
-                // with the `auth/configuration-not-found` error.
                 if (initialAuthToken) {
                     await signInWithCustomToken(auth, initialAuthToken);
                 } else {
@@ -307,18 +302,13 @@
                 userId = auth.currentUser.uid;
                 userIdDisplay.textContent = userId;
 
-                // Reference to the public leaderboard collection
                 leaderboardRef = collection(db, `artifacts/${appId}/public/data/leaderboard`);
                 userDocRef = doc(leaderboardRef, userId);
 
-                // Listen for real-time updates to the leaderboard. Note: This will not be
-                // sorted by score unless you create a Firestore index.
-                // A single-field index on 'score' is required for the orderBy query to work.
                 onSnapshot(leaderboardRef, (snapshot) => {
                     const leaderboardData = [];
                     snapshot.forEach(d => leaderboardData.push(d.data()));
 
-                    // Sort client-side to display the top scores
                     leaderboardData.sort((a, b) => b.score - a.score);
 
                     leaderboardList.innerHTML = '';
@@ -334,7 +324,6 @@
                     });
                 });
 
-                // Listen for the current user's high score
                 onSnapshot(userDocRef, (docSnap) => {
                     if (docSnap.exists()) {
                         currentUserScore = docSnap.data().score;
@@ -345,11 +334,9 @@
                     }
                 });
 
-
                 loadingOverlay.style.display = 'none';
             } catch (error) {
                 console.error("Error initializing Firebase:", error);
-                // Display the specific error message from Firebase
                 loadingOverlay.innerHTML = `<p style="color:red;">Error loading game: <br>${error.message}</p>`;
             }
         }
@@ -361,7 +348,6 @@
                     score: newScore,
                     timestamp: serverTimestamp()
                 }, { merge: true });
-                // currentUserScore will be updated by the onSnapshot listener
             }
         }
 
@@ -403,7 +389,6 @@
                 x: Math.floor(Math.random() * gridSize),
                 y: Math.floor(Math.random() * gridSize)
             };
-            // Ensure food does not spawn on the snake
             for (let segment of snake) {
                 if (segment.x === food.x && segment.y === food.y) {
                     createFood();
@@ -474,11 +459,9 @@
         }
 
         function checkCollision(head) {
-            // Wall collision
             if (head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize) {
                 return true;
             }
-            // Self collision
             for (let i = 1; i < snake.length; i++) {
                 if (head.x === snake[i].x && head.y === snake[i].y) {
                     return true;
