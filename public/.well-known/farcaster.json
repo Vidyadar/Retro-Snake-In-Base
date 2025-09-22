@@ -1,10 +1,15 @@
 {
-  "name": "Retro Snake In Base",
-  "version": "1.0.0",
-  "description": "A nostalgic take on the classic Snake game featuring retro pixel art graphics and smooth gameplay.",
-  "homeUrl": "https://retro-snake-in-base.vercel.app/",
-  "imageUrl": "https://retro-snake-in-base.vercel.app/icon.png",
-  "buttonTitle": "Play Snake",
-  "splashImageUrl": "https://retro-snake-in-base.vercel.app/splash.png",
-  "splashBackgroundColor": "#1a1a1a"
+  "accountAssociation": {
+    "header": "eyJmaWQiOjAsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIn0",
+    "payload": "eyJkb21haW4iOiJyZXRyby1zbmFrZS1pbi1iYXNlLnZlcmNlbC5hcHAifQ",
+    "signature": "MHg"
+  },
+  "frame": {
+    "name": "Retro Snake In Base",
+    "version": "1.0.0",
+    "iconUrl": "https://retro-snake-in-base.vercel.app/icon.png",
+    "splashImageUrl": "https://retro-snake-in-base.vercel.app/splash.png",
+    "splashBackgroundColor": "#1a1a1a",
+    "homeUrl": "https://retro-snake-in-base.vercel.app/"
+  }
 }
