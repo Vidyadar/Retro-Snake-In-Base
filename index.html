@@ -285,6 +285,11 @@
                     loadingOverlay.innerHTML = `<p style="color:red;">Leaderboard unavailable. <br>Please run in a compatible environment or provide your own Firebase config.</p>`;
                     return;
                 }
+                
+                // Validate API key before initializing Firebase
+                if (firebaseConfig.apiKey.includes('YOUR_')) {
+                    throw new Error("auth/api-key-not-valid");
+                }
 
                 app = initializeApp(firebaseConfig);
                 auth = getAuth(app);
