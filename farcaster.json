@@ -1,0 +1,22 @@
+{
+  "frame": {
+    "version": "next",
+    "name": "Retro Snake Game",
+    "iconUrl": "https://snake-farcaster-vert.vercel.app/icon.png",
+    "homeUrl": "https://snake-farcaster-vert.vercel.app/",
+    "imageUrl": "https://snake-farcaster-vert.vercel.app/preview.png",
+    "buttonTitle": "🎮 Play Snake",
+    "splashImageUrl": "https://snake-farcaster-vert.vercel.app/splash.png",
+    "splashBackgroundColor": "#1a1a1a"
+  },
+  "metadata": {
+    "name": "Retro Snake Game",
+    "description": "Classic Snake game for Farcaster with high scores and social sharing",
+    "image": "https://snake-farcaster-vert.vercel.app/preview.png",
+    "url": "https://snake-farcaster-vert.vercel.app/",
+    "version": "1.0.0",
+    "author": "Your Name",
+    "category": "game",
+    "tags": ["game", "snake", "arcade", "retro"]
+  }
+}
