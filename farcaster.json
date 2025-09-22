@@ -1,4 +1,3 @@
-
 {
   "accountAssociation": {
     "header": "eyJmaWQiOjEsInR5cGUiOiJjdXN0b2R5IiwiaGFzaCI6IjB4MDAwMCIsInByaXZhdGVfa2V5IjoiMHgwMDAwIn0",
@@ -11,15 +10,5 @@
     "splashImageUrl": "https://retro-snake-in-base.vercel.app/splash.png",
     "splashBackgroundColor": "#1a1a1a",
     "homeUrl": "https://retro-snake-in-base.vercel.app"
-  },
-  "webhooks": [
-    {
-      "event": "frame_added",
-      "url": "https://retro-snake-in-base.vercel.app/api/webhook"
-    },
-    {
-      "event": "frame_removed", 
-      "url": "https://retro-snake-in-base.vercel.app/api/webhook"
-    }
-  ]
+  }
 }
